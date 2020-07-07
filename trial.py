@@ -23,7 +23,7 @@ class circle:
 time1 = time.time()  # note initial time
 
 # Reference- https://ehmatthes.github.io/pcc_2e/beyond_pcc/pillow/
-image = Image.open("pics/leaf.jpeg").convert("L")
+image = Image.open("pics/palm.png").convert("L")
 pixel_map = image.load()#this is inverted, kindof weird
 width, height = image.size
 hist = image.histogram()
@@ -49,16 +49,16 @@ space = 0  # space between circles
 color = 0
 single_fail = 0
 radius = color//20 + 13
-tries=0
+
 # attempts = (len(histogram_list[color])//1,
 #             0)[len(histogram_list[color]) > 0]
 # attempts = ((3000, 1000)[len(histogram_list[color]) > 3000], 500)[len(histogram_list[color]) > 1000]
-
+success=0
 
 while color <250:
-	if if failed_attempts > 100 or tries>2000:
+	if failed_attempts > 100:
+		success=0
 		failed_attempts=0
-		tries=0
 		color += 1
 		radius=color//20 + 13
 	if not histogram_list[color]: #skipping if no pixel of that color exists
@@ -90,7 +90,7 @@ while color <250:
 		circles_matrix[x][y]= float(r)
 		print(num," , Color =",color)
 		num += 1
-		tries+=1
+		success+=1
 
 np.save("results/res",circles_matrix)
 print((time.time()-time1)/60, "min")
@@ -101,4 +101,4 @@ for i in range(width):
 			pixel_map2[i,j] = 0
 
 blank_image.show()
-blank_image.save(f"results/leaf.jpeg")
+blank_image.save(f"results/palm.png")
