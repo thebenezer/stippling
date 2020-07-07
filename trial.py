@@ -23,7 +23,7 @@ class circle:
 time1 = time.time()  # note initial time
 
 # Reference- https://ehmatthes.github.io/pcc_2e/beyond_pcc/pillow/
-image = Image.open("pics/horse.jpg").convert("L")
+image = Image.open("pics/leaf.jpeg").convert("L")
 pixel_map = image.load()#this is inverted, kindof weird
 width, height = image.size
 hist = image.histogram()
@@ -35,9 +35,6 @@ for i in range(256):
 	result=np.where(pixels==i)
 	histogram_list.append(list(zip(result[0],result[1])))
 	print("hi",i)
-x = int( histogram_list[20][20][0])
-y = int (histogram_list[20][20][1])
-print(histogram_list[20][20], ",",pixel_map[y,x])
 
 circles_matrix=np.full((height,width),-1,dtype=float)
 
@@ -45,25 +42,7 @@ blank_image = Image.new("L", (width, height), color=255)
 pixel_map2 = blank_image.load()
 print("Blank : ", blank_image.format, blank_image.size, blank_image.mode)
 
-# print(histogram_list[20][0])
-# print(np.where(histogram_list[20]==(90,555)))
-# x=100
-# y=100
-# circles_matrix[75][100]=20
-# circles_matrix[90][139]=40
-# circles_matrix[129][60]=10
-# rect = np.copy(circles_matrix[(x-50, 0)[x-50 > 0]:(x+50, width-1)
-#                               [x+50 < width], (y-50, 0)[y-50 > 0]:(y+50, height-1)[y+50 < height]])
-# result = np.where(rect > -1)
-# check = list(zip(result[0], result[1]))
-# if not check:
-# 		pass
-# else:
-# 	for res in check:
-# 		i = int(res[0])
-# 		j = int(res[1])
-# 		print(f"{i},{j}-{circles_matrix[i][j]}")
-
+print(len(histogram_list[0]))
 failed_attempts = -1
 num = 0
 space = 0  # space between circles
@@ -71,13 +50,13 @@ color = 0
 single_fail = 0
 radius = color//20 + 13
 
-attempts = (len(histogram_list[color])//1,
-            0)[len(histogram_list[color]) > 0]
+# attempts = (len(histogram_list[color])//1,
+#             0)[len(histogram_list[color]) > 0]
 # attempts = ((3000, 1000)[len(histogram_list[color]) > 3000], 500)[len(histogram_list[color]) > 1000]
 
 
 while color <250:
-	if failed_attempts > 100:
+	if failed_attempts > 1:
 		failed_attempts=0
 		color += 1
 		radius=color//20 + 13
@@ -120,4 +99,4 @@ for i in range(width):
 			pixel_map2[i,j] = 0
 
 blank_image.show()
-blank_image.save(f"results/horsenew2.jpeg")
+blank_image.save(f"results/leaf.jpeg")
