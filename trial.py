@@ -49,15 +49,16 @@ space = 0  # space between circles
 color = 0
 single_fail = 0
 radius = color//20 + 13
-
+tries=0
 # attempts = (len(histogram_list[color])//1,
 #             0)[len(histogram_list[color]) > 0]
 # attempts = ((3000, 1000)[len(histogram_list[color]) > 3000], 500)[len(histogram_list[color]) > 1000]
 
 
 while color <250:
-	if if failed_attempts > 100 or (num %2000 ==0 and num!=0):
+	if if failed_attempts > 100 or tries>2000:
 		failed_attempts=0
+		tries=0
 		color += 1
 		radius=color//20 + 13
 	if not histogram_list[color]: #skipping if no pixel of that color exists
@@ -89,6 +90,7 @@ while color <250:
 		circles_matrix[x][y]= float(r)
 		print(num," , Color =",color)
 		num += 1
+		tries+=1
 
 np.save("results/res",circles_matrix)
 print((time.time()-time1)/60, "min")
