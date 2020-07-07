@@ -56,7 +56,7 @@ radius = color//20 + 13
 
 
 while color <250:
-	if failed_attempts > 1:
+	if if failed_attempts > 100 or (num %2000 ==0 and num!=0):
 		failed_attempts=0
 		color += 1
 		radius=color//20 + 13
