@@ -1,2 +1,2 @@
 # stippling
-Stippling using brute-force circle packing algorithm.
+Stippling using quadtrees and circle packing algorithm.
